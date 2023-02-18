@@ -6,12 +6,10 @@ import ChatView from "./ChatView.vue";
 
 <script lang="ts">
 
-import {CreateCompletionResponse} from "openai/api";
-
 export default {
   data() {
     return {
-      messages: [] as CreateCompletionResponse[]
+      messages: [] as any[]
     };
   },
   methods: {
