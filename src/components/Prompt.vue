@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 
-// defineProps<{ msg: string }>()
+defineEmits<{
+  (event: 'sendPrompt', text: string): void
+}>()
 
 const text = ref('')
 </script>
@@ -13,6 +15,10 @@ const text = ref('')
         name="main-prompt"
         class="prompt-input"
         v-model="text"
+        @keyup="e => {
+          if (e.code  === 'Enter' && text !== '')
+            $emit('sendPrompt', text)
+        }"
     />
   </div>
 </template>

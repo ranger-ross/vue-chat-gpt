@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vercel/node": "^2.9.6",
+    "openai": "^3.1.0",
+    "vercel": "^28.16.2",
     "vue": "^3.2.45"
   },
   "devDependencies": {

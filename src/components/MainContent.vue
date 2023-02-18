@@ -1,16 +1,44 @@
 <script setup lang="ts">
 import Prompt from "./Prompt.vue";
+import ChatView from "./ChatView.vue";
+
 </script>
+
+<script lang="ts">
+
+import {CreateCompletionResponse} from "openai/api";
+
+export default {
+  data() {
+    return {
+      messages: [] as CreateCompletionResponse[]
+    };
+  },
+  methods: {
+    chat: async (prompt: string) => {
+      console.log('Send Prompt', prompt);
+
+      fetch(encodeURI(`/api/chat?prompt=${prompt}`))
+          .then(response => response.json())
+          .then(response => {
+            console.log(response);
+          })
+    }
+  }
+}
+
+</script>
+
 
 <template>
   <div class="main-content">
 
     <div class="chat-container">
-      Chat goes here
+      <ChatView/>
     </div>
 
     <div class="prompt-container">
-      <Prompt />
+      <Prompt @send-prompt="chat"/>
     </div>
 
   </div>
@@ -27,6 +55,7 @@ import Prompt from "./Prompt.vue";
   display: flex;
   flex-direction: column;
 }
+
 .chat-container {
   flex-grow: 1;
 }
