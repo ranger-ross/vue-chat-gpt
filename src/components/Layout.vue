@@ -22,7 +22,7 @@ import MainContent from "./MainContent.vue";
 
 .side-bar-container {
   height: 100vh;
-  width: 30vw;
+  width: clamp(150px, 30vw, 350px);
 }
 
 .main-content-container {
