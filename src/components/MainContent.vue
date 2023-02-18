@@ -7,24 +7,28 @@ import ChatView from "./ChatView.vue";
 <script lang="ts">
 
 export default {
-  data() {
+  data: function () {
     return {
       messages: [] as any[]
-    };
+    }
   },
   methods: {
-    chat: async (prompt: string) => {
+    async chat(prompt: string) {
       console.log('Send Prompt', prompt);
+      console.log(this.messages)
+      // this.message = "updated"
 
       fetch(encodeURI(`/api/chat?prompt=${prompt}`))
-          .then(response => response.json())
-          .then(response => {
-            console.log(response);
-          })
+      .then(response => response.json())
+      .then(response => {
+
+        this.messages.push(response)
+
+        console.log(response);
+      })
     }
   }
 }
-
 </script>
 
 
@@ -32,7 +36,10 @@ export default {
   <div class="main-content">
 
     <div class="chat-container">
-      <ChatView/>
+      <ChatView />
+
+      {{ messages.length > 0 ? messages[messages.length - 1].choices[0].text : ''}}
+
     </div>
 
     <div class="prompt-container">
