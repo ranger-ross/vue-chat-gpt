@@ -7,24 +7,47 @@ import ChatView from "./ChatView.vue";
 <script lang="ts">
 
 import {PromptInput} from "../types/PromptInput";
-import {ChatMessage} from "../types/ChatMessage";
+import {chatsStore} from "../stores/ChatsStore";
+import {appStateStore} from "../stores/AppStateStore";
+import {Chat} from "../types/Chat";
+
+function createNewChat(firstPrompt: PromptInput) {
+
+  const maxLength = 40;
+  const isTooLong = firstPrompt.text.length > maxLength
+  const title = firstPrompt.text.substring(0, maxLength) + (isTooLong ? '...' : '');
+
+  const newChat: Chat = {
+    title: title,
+    messages: [firstPrompt]
+  }
+
+  chatsStore.chats.push(newChat);
+  appStateStore.selectedChatIndex = chatsStore.chats.length - 1;
+  return newChat;
+}
 
 export default {
-  data: function () {
-    return {
-      messages: [] as ChatMessage[]
+  computed: {
+    currentChat() {
+      return chatsStore.chats[appStateStore.selectedChatIndex] ?? null;
     }
   },
   methods: {
     async chat(prompt: PromptInput) {
       console.log('Send Prompt', prompt);
-      this.messages.push(prompt);
+
+      if (!this.currentChat) {
+        this.currentChat = createNewChat(prompt);
+      } else {
+        this.currentChat.messages.push(prompt);
+      }
 
       fetch(encodeURI(`/api/chat?prompt=${prompt.text}`))
           .then(response => response.json())
           .then(response => {
             console.log(response);
-            this.messages.push(response)
+            this.currentChat.messages.push(response)
           });
     }
   }
@@ -36,7 +59,7 @@ export default {
   <div class="main-content">
 
     <div class="chat-container">
-      <ChatView :messages="messages"/>
+      <ChatView :messages="currentChat?.messages ?? []"/>
 
 
     </div>

@@ -19,6 +19,7 @@ export default async function handler(
         return;
     }
 
+    // Model options: https://platform.openai.com/docs/models/overview
     const openAiResponse = await openai.createCompletion({
         model: "text-davinci-003",
         prompt: prompt,
