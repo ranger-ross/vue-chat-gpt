@@ -1,6 +1,5 @@
 <script lang="ts">
 
-import {appStateStore} from "../stores/AppStateStore";
 import {chatsStore} from "../stores/ChatsStore";
 import {Chat} from "../types/Chat";
 
@@ -10,7 +9,7 @@ export default {
       return chatsStore.getters.chats;
     },
     currentChatIndex() {
-      return appStateStore.selectedChatIndex ?? -1;
+      return chatsStore.getters.selectedChatIndex ?? -1;
     }
   },
   methods: {
@@ -24,12 +23,14 @@ export default {
         type: "addChat",
         newChat: newChat,
       });
-
-      appStateStore.selectedChatIndex = chatsStore.state.chats.length - 1;
     },
     selectChat(index: number) {
       console.log('selecting chat with index', index)
-      appStateStore.selectedChatIndex = index;
+
+      chatsStore.commit({
+        type: 'setSelectedChatIndex',
+        index: index
+      })
     }
   }
 }

@@ -8,7 +8,6 @@ import ChatView from "./ChatView.vue";
 
 import {PromptInput} from "../types/PromptInput";
 import {chatsStore} from "../stores/ChatsStore";
-import {appStateStore} from "../stores/AppStateStore";
 import {Chat} from "../types/Chat";
 
 function createNewChat(firstPrompt: PromptInput, store: any) {
@@ -27,14 +26,13 @@ function createNewChat(firstPrompt: PromptInput, store: any) {
     newChat: newChat,
   });
 
-  appStateStore.selectedChatIndex = chatsStore.state.chats.length - 1;
   return newChat;
 }
 
 export default {
   computed: {
     currentChat() {
-      return chatsStore.getters.chats[appStateStore.selectedChatIndex] ?? null;
+      return chatsStore.getters.chats[chatsStore.getters.selectedChatIndex] ?? null;
     }
   },
   methods: {

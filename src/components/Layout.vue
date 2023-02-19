@@ -19,7 +19,6 @@ import MainContent from "./MainContent.vue";
 
 <style scoped>
 
-
 .side-bar-container {
   height: 100vh;
   width: clamp(150px, 30vw, 350px);

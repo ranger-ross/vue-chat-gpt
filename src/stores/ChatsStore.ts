@@ -1,6 +1,5 @@
 import {Chat} from "../types/Chat";
 import {createStore} from 'vuex'
-import {appStateStore} from "./AppStateStore";
 
 // Create a new store instance.
 export const chatsStore = createStore({
@@ -25,11 +24,17 @@ export const chatsStore = createStore({
                 state.selectedChatIndex = JSON.parse(selectedChatIndex);
             }
         },
+        setSelectedChatIndex(state, payload) {
+            state.selectedChatIndex = payload.index;
+        },
     },
     getters: {
         chats(state) {
             return state.chats;
-        }
+        },
+        selectedChatIndex(state) {
+            return state.selectedChatIndex;
+        },
     }
 })
 
