@@ -6,26 +6,25 @@ import ChatView from "./ChatView.vue";
 
 <script lang="ts">
 
+import {PromptInput} from "../types/PromptInput";
+import {ChatMessage} from "../types/ChatMessage";
+
 export default {
   data: function () {
     return {
-      messages: [] as any[]
+      messages: [] as ChatMessage[]
     }
   },
   methods: {
-    async chat(prompt: string) {
+    async chat(prompt: PromptInput) {
       console.log('Send Prompt', prompt);
-      console.log(this.messages)
-      // this.message = "updated"
 
-      fetch(encodeURI(`/api/chat?prompt=${prompt}`))
-      .then(response => response.json())
-      .then(response => {
-
-        this.messages.push(response)
-
-        console.log(response);
-      })
+      fetch(encodeURI(`/api/chat?prompt=${prompt.text}`))
+          .then(response => response.json())
+          .then(response => {
+            console.log(response);
+            this.messages.push(response)
+          });
     }
   }
 }
@@ -36,9 +35,8 @@ export default {
   <div class="main-content">
 
     <div class="chat-container">
-      <ChatView />
+      <ChatView :messages="messages"/>
 
-      {{ messages.length > 0 ? messages[messages.length - 1].choices[0].text : ''}}
 
     </div>
 

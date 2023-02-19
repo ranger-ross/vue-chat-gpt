@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import {ref} from 'vue'
+import {PromptInput} from "../types/PromptInput";
 
 defineEmits<{
-  (event: 'sendPrompt', text: string): void
+  (event: 'sendPrompt', prompt: PromptInput): void
 }>()
 
 const text = ref('')
@@ -16,8 +17,13 @@ const text = ref('')
         class="prompt-input"
         v-model="text"
         @keyup="e => {
-          if (e.code  === 'Enter' && text !== '')
-            $emit('sendPrompt', text)
+          if (e.code  === 'Enter' && text !== '') {
+               $emit('sendPrompt', {
+              text: text,
+              timestamp: Date.now()
+            });
+          text = '';
+          }
         }"
     />
   </div>
