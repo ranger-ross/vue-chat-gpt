@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {ChatMessage} from "../types/ChatMessage";
+import {GptMessage} from "../types/GptMessage";
+import {PromptInput} from "../types/PromptInput";
 
 defineProps<{ messages: ChatMessage[] }>()
 
@@ -13,14 +15,14 @@ defineProps<{ messages: ChatMessage[] }>()
 
     <!-- GPT response bubble-->
     <div class="gpt-message-bubble"
-         v-if="message.choices">
-      {{message.choices[0].text ?? ''}}
+         v-if="(message as GptMessage).choices">
+      {{(message as GptMessage).choices[0].text ?? ''}}
     </div>
 
     <!-- User input bubble-->
     <div class="user-message-bubble"
-         v-if="!message.choices">
-      {{message.text ?? ''}}
+         v-if="!(message as GptMessage).choices">
+      {{(message as PromptInput).text ?? ''}}
     </div>
 
   </div>
