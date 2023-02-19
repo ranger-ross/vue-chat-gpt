@@ -13,6 +13,7 @@ const text = ref('')
 <template>
   <div class="prompt">
     <input
+        autofocus
         name="main-prompt"
         class="prompt-input"
         v-model="text"
