@@ -5,6 +5,13 @@ import {PromptInput} from "../types/PromptInput";
 
 defineProps<{ messages: ChatMessage[] }>()
 
+const formatText = (text: string): string => {
+  while (text.startsWith('\n')) {
+    text = text.substring(1);
+  }
+  return text;
+}
+
 </script>
 
 
@@ -16,19 +23,19 @@ defineProps<{ messages: ChatMessage[] }>()
     <!-- GPT response bubble-->
     <div class="gpt-message-bubble"
          v-if="(message as GptMessage).choices">
-      {{(message as GptMessage).choices[0].text ?? ''}}
+      {{ formatText((message as GptMessage).choices[0].text ?? '') }}
     </div>
 
     <!-- User input bubble-->
     <div class="user-message-bubble"
          v-if="!(message as GptMessage).choices">
-      {{(message as PromptInput).text ?? ''}}
+      {{ formatText((message as PromptInput).text ?? '') }}
     </div>
 
   </div>
 
   <div v-if="messages.length === 0" class="welcome-message">
-      Hello! Write a message and OpenAI will respond to it!
+    Hello! Write a message and OpenAI will respond to it!
   </div>
 
 
@@ -46,7 +53,8 @@ defineProps<{ messages: ChatMessage[] }>()
   padding: 8px;
   background: #424242;
   border-radius: 5px;
-  max-width: min(50%, 500px);
+  white-space: pre-wrap;
+  max-width: fit-content;
 }
 
 .user-message-bubble {
@@ -54,9 +62,9 @@ defineProps<{ messages: ChatMessage[] }>()
   padding: 8px;
   background: #5d5d5d;
   border-radius: 5px;
-  max-width: min(50%, 500px);
+  white-space: pre-wrap;
+  max-width: fit-content;
 }
-
 
 
 </style>

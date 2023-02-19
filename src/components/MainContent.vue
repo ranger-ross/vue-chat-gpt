@@ -65,8 +65,6 @@ export default {
 
     <div class="chat-container">
       <ChatView :messages="currentChat?.messages ?? []"/>
-
-
     </div>
 
     <div class="prompt-container">
@@ -90,6 +88,7 @@ export default {
 
 .chat-container {
   flex-grow: 1;
+  overflow-y: scroll;
 }
 
 .prompt-container {
