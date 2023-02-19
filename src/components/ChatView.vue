@@ -46,7 +46,7 @@ defineProps<{ messages: ChatMessage[] }>()
   padding: 8px;
   background: #424242;
   border-radius: 5px;
-  max-width: 50%;
+  max-width: min(50%, 500px);
 }
 
 .user-message-bubble {
@@ -54,7 +54,7 @@ defineProps<{ messages: ChatMessage[] }>()
   padding: 8px;
   background: #5d5d5d;
   border-radius: 5px;
-  max-width: 50%;
+  max-width: min(50%, 500px);
 }
 
 
