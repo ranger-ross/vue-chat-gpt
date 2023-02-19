@@ -9,15 +9,11 @@ import ChatView from "./ChatView.vue";
 import {PromptInput} from "../types/PromptInput";
 import {chatsStore} from "../stores/ChatsStore";
 import {Chat} from "../types/Chat";
+import {createTitle} from "../util/TitleUtil";
 
 function createNewChat(firstPrompt: PromptInput, store: any) {
-
-  const maxLength = 40;
-  const isTooLong = firstPrompt.text.length > maxLength
-  const title = firstPrompt.text.substring(0, maxLength) + (isTooLong ? '...' : '');
-
   const newChat: Chat = {
-    title: title,
+    title: createTitle(firstPrompt.text),
     messages: [firstPrompt]
   }
 

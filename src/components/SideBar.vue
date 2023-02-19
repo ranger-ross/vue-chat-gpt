@@ -2,6 +2,7 @@
 
 import {chatsStore} from "../stores/ChatsStore";
 import {Chat} from "../types/Chat";
+import {DEFAULT_TITLE} from "../util/TitleUtil";
 
 export default {
   computed: {
@@ -15,7 +16,7 @@ export default {
   methods: {
     addNewChat() {
       const newChat: Chat = {
-        title: 'New Chat',
+        title: DEFAULT_TITLE,
         messages: []
       }
 
@@ -50,7 +51,6 @@ export default {
         {{ chat.title }}
       </div>
     </div>
-
 
     <button class="new-chat-button"
             @click="addNewChat">

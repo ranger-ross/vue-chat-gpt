@@ -1,5 +1,6 @@
 import {Chat} from "../types/Chat";
 import {createStore} from 'vuex'
+import {createTitle} from "../util/TitleUtil";
 
 export const chatsStore = createStore({
     state() {
@@ -27,7 +28,11 @@ export const chatsStore = createStore({
             state.selectedChatIndex = payload.index;
         },
         addMessage(state, payload) {
-            state.chats[state.selectedChatIndex].messages.push(payload.message);
+            let chat = state.chats[state.selectedChatIndex];
+            if (chat.messages.length === 0 && payload.message?.text) {
+                chat.title = createTitle(payload.message?.text);
+            }
+            chat.messages.push(payload.message);
         },
     },
     getters: {
