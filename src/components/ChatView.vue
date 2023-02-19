@@ -25,11 +25,19 @@ defineProps<{ messages: ChatMessage[] }>()
 
   </div>
 
+  <div v-if="messages.length === 0" class="welcome-message">
+      Hello! Write a message and OpenAI will respond to it!
+  </div>
 
 
 </template>
 
 <style scoped>
+
+.welcome-message {
+  text-align: center;
+  margin-top: 92vh;
+}
 
 .gpt-message-bubble {
   margin: 8px;
