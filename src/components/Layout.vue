@@ -17,7 +17,7 @@ import MainContent from "./MainContent.vue";
 
 </template>
 
-<style>
+<style scoped>
 
 
 .side-bar-container {

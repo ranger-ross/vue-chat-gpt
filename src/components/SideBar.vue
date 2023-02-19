@@ -5,12 +5,10 @@ import {chatsStore} from "../stores/ChatsStore";
 import {Chat} from "../types/Chat";
 
 export default {
-  data() {
-    return {
-      chats: chatsStore.chats
-    }
-  },
   computed: {
+    chats() {
+      return chatsStore.getters.chats;
+    },
     currentChatIndex() {
       return appStateStore.selectedChatIndex ?? -1;
     }
@@ -22,8 +20,12 @@ export default {
         messages: []
       }
 
-      chatsStore.chats.push(newChat);
-      appStateStore.selectedChatIndex = chatsStore.chats.length - 1;
+      chatsStore.commit({
+        type: "addChat",
+        newChat: newChat,
+      });
+
+      appStateStore.selectedChatIndex = chatsStore.state.chats.length - 1;
     },
     selectChat(index: number) {
       console.log('selecting chat with index', index)

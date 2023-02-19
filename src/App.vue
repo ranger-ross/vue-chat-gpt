@@ -2,23 +2,21 @@
 import Layout from "./components/Layout.vue";
 </script>
 
+<script lang="ts">
+
+import {chatsStore} from "./stores/ChatsStore";
+import {appStateStore} from "./stores/AppStateStore";
+
+export default {
+  beforeMount() {
+    chatsStore.commit('loadData');
+
+    appStateStore.selectedChatIndex = chatsStore.state.chats.length > 0 ? 0 : -1;
+  }
+}
+
+</script>
+
 <template>
-
   <Layout/>
-
 </template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>

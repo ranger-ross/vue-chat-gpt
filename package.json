@@ -12,7 +12,8 @@
     "@vercel/node": "^2.9.6",
     "openai": "^3.1.0",
     "vercel": "^28.16.2",
-    "vue": "^3.2.45"
+    "vue": "^3.2.45",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@types/node": "^18.14.0",

@@ -11,7 +11,7 @@ import {chatsStore} from "../stores/ChatsStore";
 import {appStateStore} from "../stores/AppStateStore";
 import {Chat} from "../types/Chat";
 
-function createNewChat(firstPrompt: PromptInput) {
+function createNewChat(firstPrompt: PromptInput, store: any) {
 
   const maxLength = 40;
   const isTooLong = firstPrompt.text.length > maxLength
@@ -22,15 +22,19 @@ function createNewChat(firstPrompt: PromptInput) {
     messages: [firstPrompt]
   }
 
-  chatsStore.chats.push(newChat);
-  appStateStore.selectedChatIndex = chatsStore.chats.length - 1;
+  store.commit({
+    type: 'addChat',
+    newChat: newChat,
+  });
+
+  appStateStore.selectedChatIndex = chatsStore.state.chats.length - 1;
   return newChat;
 }
 
 export default {
   computed: {
     currentChat() {
-      return chatsStore.chats[appStateStore.selectedChatIndex] ?? null;
+      return chatsStore.getters.chats[appStateStore.selectedChatIndex] ?? null;
     }
   },
   methods: {
@@ -38,7 +42,7 @@ export default {
       console.log('Send Prompt', prompt);
 
       if (!this.currentChat) {
-        this.currentChat = createNewChat(prompt);
+        createNewChat(prompt, chatsStore);
       } else {
         this.currentChat.messages.push(prompt);
       }
