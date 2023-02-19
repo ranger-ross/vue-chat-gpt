@@ -1,7 +1,6 @@
 import {Chat} from "../types/Chat";
 import {createStore} from 'vuex'
 
-// Create a new store instance.
 export const chatsStore = createStore({
     state() {
         return {
@@ -12,7 +11,7 @@ export const chatsStore = createStore({
     mutations: {
         addChat(state, payload) {
             state.chats = [...state.chats, payload.newChat];
-            state.selectedChatIndex = state.chats.length;
+            state.selectedChatIndex = state.chats.length - 1;
         },
         loadData(state) {
             const chats = localStorage.getItem('chats');
@@ -26,6 +25,9 @@ export const chatsStore = createStore({
         },
         setSelectedChatIndex(state, payload) {
             state.selectedChatIndex = payload.index;
+        },
+        addMessage(state, payload) {
+            state.chats[state.selectedChatIndex].messages.push(payload.message);
         },
     },
     getters: {

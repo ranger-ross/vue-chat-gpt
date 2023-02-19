@@ -42,14 +42,21 @@ export default {
       if (!this.currentChat) {
         createNewChat(prompt, chatsStore);
       } else {
-        this.currentChat.messages.push(prompt);
+        chatsStore.commit({
+          type: 'addMessage',
+          message: prompt
+        });
       }
 
       fetch(encodeURI(`/api/chat?prompt=${prompt.text}`))
           .then(response => response.json())
           .then(response => {
             console.log(response);
-            this.currentChat.messages.push(response)
+
+            chatsStore.commit({
+              type: 'addMessage',
+              message: response
+            });
           });
     }
   }
