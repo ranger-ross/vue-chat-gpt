@@ -18,6 +18,7 @@ export default {
   methods: {
     async chat(prompt: PromptInput) {
       console.log('Send Prompt', prompt);
+      this.messages.push(prompt);
 
       fetch(encodeURI(`/api/chat?prompt=${prompt.text}`))
           .then(response => response.json())

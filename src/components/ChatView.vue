@@ -8,6 +8,45 @@ defineProps<{ messages: ChatMessage[] }>()
 
 <template>
 
-  {{ messages.length > 0 ? messages[messages.length - 1].choices[0].text : '' }}
+
+  <div v-for="message in messages">
+
+    <!-- GPT response bubble-->
+    <div class="gpt-message-bubble"
+         v-if="message.choices">
+      {{message.choices[0].text ?? ''}}
+    </div>
+
+    <!-- User input bubble-->
+    <div class="user-message-bubble"
+         v-if="!message.choices">
+      {{message.text ?? ''}}
+    </div>
+
+  </div>
+
+
 
 </template>
+
+<style scoped>
+
+.gpt-message-bubble {
+  margin: 8px;
+  padding: 8px;
+  background: #424242;
+  border-radius: 5px;
+  max-width: 50%;
+}
+
+.user-message-bubble {
+  margin: 8px 8px 8px auto; /* Align bubble right */
+  padding: 8px;
+  background: #5d5d5d;
+  border-radius: 5px;
+  max-width: 50%;
+}
+
+
+
+</style>

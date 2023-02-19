@@ -1,6 +1,5 @@
 import type {VercelRequest, VercelResponse} from "@vercel/node";
 import {Configuration, OpenAIApi} from "openai";
-import {CreateCompletionResponse} from "openai/api";
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
